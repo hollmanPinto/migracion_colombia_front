@@ -1,4 +1,68 @@
-<div>
-  <input type="text" pInputText [(ngModel)]="ruta" />
-  <p-button label="Enviar Ruta" icon="pi pi-check" (onClick)="enviarRuta()"></p-button>
+<div class="container">
+    <div>
+        <input type="text" pInputText [(ngModel)]="ruta" />
+        <p-button label="Enviar Ruta" icon="pi pi-check" (onClick)="enviarRuta()"></p-button>
+    </div>
+    <div *ngIf="mostrarForm" style="display: flex; margin-top: 3%;">
+        <div style="flex:1">
+            <span class="p-float-label">
+                <input pInputText id="username" [(ngModel)]="anioGenerar" />
+                <label htmlFor="username">Año de Generacion</label>
+            </span>
+        </div>
+        <div style="flex:1">
+            <span class="p-float-label">
+                <input pInputText id="username" [(ngModel)]="mesGenerar" />
+                <label htmlFor="username">Mes de Generacion</label>
+            </span>
+        </div>
+        <div style="flex:1">
+            <span class="p-float-label">
+                <input pInputText id="username" [(ngModel)]="nacionalidad" />
+                <label htmlFor="username">Nacionalidad</label>
+            </span>
+        </div>
+        <div style="flex:1">
+            <span class="p-float-label">
+                <input pInputText id="username" [(ngModel)]="cantidad" />
+                <label htmlFor="username">Cantidad de Registros</label>
+            </span>
+        </div>
+    </div>
+    <div *ngIf="mostrarForm" style="margin-top: 1%;">
+        <p-button label="Solicitar Data" icon="pi pi-check" 
+        styleClass="p-button-success" (onClick)="solicitarTabla()"></p-button>
+    </div>
+    <div *ngIf="mostrarTabla" style="margin-top: 2%;">
+        <p-table [value]="migraciones" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>INDEX</th>
+                    <th>AÑO</th>
+                    <th>MES</th>
+                    <th>NACIONALIDAD</th>
+                    <th>ISO_3166</th>
+                    <th>FEMENINO</th>
+                    <th>MASCULINO</th>
+                    <th>INDEFINIDO</th>
+                    <th>TOTAL</th>
+                    <th>LATITUD_LONGITUD</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-migracion>
+                <tr>
+                    <td>{{ migracion.index }}</td>
+                    <td>{{ migracion.ANIO }}</td>
+                    <td>{{ migracion.MES }}</td>
+                    <td>{{ migracion.NACIONALIDAD }}</td>
+                    <td>{{ migracion.ISO_3166 }}</td>
+                    <td>{{ migracion.FEMENINO }}</td>
+                    <td>{{ migracion.MASCULINO }}</td>
+                    <td>{{ migracion.INDEFINIDO }}</td>
+                    <td>{{ migracion.TOTAL }}</td>
+                    <td>{{ migracion.LATITUD_LONGITUD }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
