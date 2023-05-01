@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { MigracionColombia } from 'src/models/migracion-colombia';
 import { GeneralServicesService } from 'src/services/general-services.service';
 
@@ -18,16 +19,35 @@ export class EnviarRutaComponent implements OnInit {
   anioGenerar:string='';
   nacionalidad:string='';
   mesGenerar:string='';
+  mostrarHome:boolean=true;
+  private subscription:Subscription;
   constructor(
     private generalService:GeneralServicesService
   ) { }
 
   ngOnInit(): void {
-    this.iniciar();
+    console.log('entro por init '+this.mostrarHome)
+    this.mostrarHome = true;
+    this.subscription = this.generalService.homeMostrarSubs.subscribe( valor =>{
+      console.log('entro por subs')
+      if(valor){
+        this.mostrarHome = true;
+        this.iniciar()
+        this.generalService.mostrarBarras(false); //ocultar barras
+        this.generalService.mostrarPie(false); //ocultar pie
+        this.generalService.mostrarFunciones(false) //ocultar funciones
+      }else{
+        this.mostrarHome=false;
+      }
+    },
+    error =>{
+      console.log("error en la subscripcion", error)
+    });
   }
   iniciar(){
 
   }
+
   async enviarRuta(){
     console.log(this.ruta)
     let enviarCsv = await this.generalService.enviarUrlCsv(this.ruta);

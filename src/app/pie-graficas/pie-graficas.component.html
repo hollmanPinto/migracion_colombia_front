@@ -1,0 +1,8 @@
+<div *ngIf="mostrarPie" style="width: 30%; display: flex;">
+  <div style="flex:1">
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+  </div>
+  <div style="flex:1">
+    <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+</div>
+</div>
