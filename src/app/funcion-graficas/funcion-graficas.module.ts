@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { FuncionGraficasRoutingModule } from './funcion-graficas-routing.module';
 import { FuncionGraficasComponent } from './funcion-graficas.component';
-
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [FuncionGraficasComponent],
   imports: [
     CommonModule,
-    FuncionGraficasRoutingModule
+    FuncionGraficasRoutingModule,
+    ChartModule
   ],
   exports:[FuncionGraficasComponent]
 })

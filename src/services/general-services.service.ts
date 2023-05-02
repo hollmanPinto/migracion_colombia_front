@@ -11,6 +11,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GeneralServicesService {
   urlCargarCsv='http://127.0.0.1:8000/api/v1/loadCsv';
   urlInfo='http://127.0.0.1:8000/api/v1/verData';
+  urlPersonasAnio='http://127.0.0.1:8000/api/v1/personasXanio';
+  urlPoporcionHm='http://127.0.0.1:8000/api/v1/proporcionHm';
+  urlMigrantesTrim='http://127.0.0.1:8000/api/v1/ingresosMigrantesTr';
+
   activarGraphTorta:boolean=false
   activarPie:boolean=false;
   pieMostrarSubs = new BehaviorSubject<boolean>(false);
@@ -40,17 +44,38 @@ export class GeneralServicesService {
     }
     return this.http.post<MigracionColombia[]>(this.urlInfo,body).toPromise();
   }
+  personasAnio(rangoAnios:string): Promise<any>{
+    let body = {
+      rangoAnios:rangoAnios
+    }
+    return this.http.post<any>(this.urlPersonasAnio,body).toPromise();
+  }
+  proporcionHm(rangoAnios:string): Promise<any>{
+    let body = {
+      rangoAnios:rangoAnios
+      }
+    return this.http.post<any>(this.urlPoporcionHm,body).toPromise();
+  }
+  migrantesTrimestre(rangoAnios:string): Promise<any>{
+    let body = {
+      rangoAnios:rangoAnios
+      }
+      return this.http.post<any>(this.urlMigrantesTrim,body).toPromise();
+  }
 
   mostrarPie(data:boolean){//aqui emito el valor
     this.pieMostrarSubs.next(data)
   }
   mostrarBarras(data:boolean){
     this.barrasMostrarSubs.next(data)
+    return;
   }
   mostrarFunciones(data:boolean){
     this.funcionesMostrarSubs.next(data)
+    return;
   }
   mostrarHome(data:boolean){
     this.homeMostrarSubs.next(data)
+    return;
   } 
 }

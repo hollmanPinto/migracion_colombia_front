@@ -1,3 +1,15 @@
 @import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import '~primeicons/primeicons.css';
+
+.titulosGraficas{
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif; 
+  color:dimgray;
+  font-weight: bold;
+}
+.subtitulos{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif; 
+  color:dimgray
+}

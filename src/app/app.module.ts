@@ -13,6 +13,7 @@ import { BarrasGraficasComponent } from './barras-graficas/barras-graficas.compo
 import { BarrasGraficasModule } from './barras-graficas/barras-graficas.module';
 import { FuncionGraficasComponent } from './funcion-graficas/funcion-graficas.component';
 import { FuncionGraficasModule } from './funcion-graficas/funcion-graficas.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { FuncionGraficasModule } from './funcion-graficas/funcion-graficas.modul
     PieGraficasModule,
     BarrasGraficasModule,
     FuncionGraficasModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
