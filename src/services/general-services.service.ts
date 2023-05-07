@@ -14,6 +14,8 @@ export class GeneralServicesService {
   urlPersonasAnio='http://127.0.0.1:8000/api/v1/personasXanio';
   urlPoporcionHm='http://127.0.0.1:8000/api/v1/proporcionHm';
   urlMigrantesTrim='http://127.0.0.1:8000/api/v1/ingresosMigrantesTr';
+  urlTopPaises='http://127.0.0.1:8000/api/v1/topPaises';
+  urlMesAnioCantidad='http://127.0.0.1:8000/api/v1/cantidadMesesAnios';
 
   activarGraphTorta:boolean=false
   activarPie:boolean=false;
@@ -61,6 +63,12 @@ export class GeneralServicesService {
       rangoAnios:rangoAnios
       }
       return this.http.post<any>(this.urlMigrantesTrim,body).toPromise();
+  }
+  topPaises(): Promise<any>{
+    return this.http.get<any>(this.urlTopPaises).toPromise();
+  }
+  cantidadMesesAnios(): Promise<any>{
+    return this.http.get<any>(this.urlMesAnioCantidad).toPromise();
   }
 
   mostrarPie(data:boolean){//aqui emito el valor

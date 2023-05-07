@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BarrasGraficasRoutingModule } from './barras-graficas-routing.module';
 import { BarrasGraficasComponent } from './barras-graficas.component';
 import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { ChartModule } from 'primeng/chart';
     CommonModule,
     BarrasGraficasRoutingModule,
     ChartModule,
+    ButtonModule,
   ],
   exports:[BarrasGraficasComponent]
 })

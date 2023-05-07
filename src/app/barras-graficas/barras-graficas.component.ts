@@ -14,6 +14,11 @@ export class BarrasGraficasComponent implements OnInit {
   options: any;
   data1: any;
   options1: any;
+  paises: string[]=[];
+  topPaises: number[]=[];
+  desc:boolean=true;
+  txtBtn:string='Ascendente'
+  btnColor:string='p-button-rounded p-button-primary'
   constructor(
     private generalService:GeneralServicesService,
   ) { }
@@ -34,134 +39,119 @@ export class BarrasGraficasComponent implements OnInit {
       console.log("error en la subscripcion", error)
     });
   }
-  iniciar(){
+  async iniciar(){
     this.mostrarBarras = true;
-    const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'My Second dataset',
-                    backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-                    borderColor: documentStyle.getPropertyValue('--pink-500'),
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
-
-        this.options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.8,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary,
-                        font: {
-                            weight: 500
-                        }
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                }
-
-            }
-        };
-        this.stackedBar()
+    this.barrasHorizontales(0)
   }
-  stackedBar(){
+
+  async barrasHorizontales(top:number){
+    this.paises = []
+    this.topPaises = []
+    let topPaises:any[] = await this.generalService.topPaises();
+    if(this.desc){
+        for(let i=0; i<topPaises.length-top;i++){
+            if(topPaises[i]['NACIONALIDAD'] === 'REINO UNIDO DE GRAN BRETANA E IRLANDA DEL NORTE'){
+                this.paises.push('REINO UNIDO')
+                this.topPaises.push(topPaises[i]['TOTAL'])
+            }else{
+                if(topPaises[i]['NACIONALIDAD'] === 'ESTADOS UNIDOS DE AMERICA'){
+                    this.paises.push('ESTADOS UNIDOS')
+                    this.topPaises.push(topPaises[i]['TOTAL'])
+                }else{
+                    this.paises.push(topPaises[i]['NACIONALIDAD'])
+                    this.topPaises.push(topPaises[i]['TOTAL'])
+                }  
+            }
+        }
+    }else{
+        for(let i=topPaises.length-1;i>-1+top;i--){
+            console.log(this.topPaises[i])
+            if(topPaises[i]['NACIONALIDAD'] === 'REINO UNIDO DE GRAN BRETANA E IRLANDA DEL NORTE'){
+                this.paises.push('REINO UNIDO')
+                this.topPaises.push(topPaises[i]['TOTAL'])
+            }else{
+                if(topPaises[i]['NACIONALIDAD'] === 'ESTADOS UNIDOS DE AMERICA'){
+                    this.paises.push('ESTADOS UNIDOS')
+                    this.topPaises.push(topPaises[i]['TOTAL'])
+                }else{
+                    this.paises.push(topPaises[i]['NACIONALIDAD'])
+                    this.topPaises.push(topPaises[i]['TOTAL'])
+                }  
+            }
+        }
+    }
     const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.data1 = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    type: 'bar',
-                    label: 'Dataset 1',
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [50, 25, 12, 48, 90, 76, 42]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 2',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [21, 84, 24, 75, 37, 65, 34]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 3',
-                    backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-                    data: [41, 52, 24, 74, 23, 21, 32]
-                }
-            ]
-        };
+    this.data = {
+        labels: this.paises,
+        datasets: [
+            {
+                label: 'Top de Paises con mayor migración desde hacia Colombia',
+                backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                borderColor: documentStyle.getPropertyValue('--blue-500'),
+                data: this.topPaises
+            }
+        ]
+    };
 
-        this.options1 = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.8,
-            plugins: {
-                tooltips: {
-                    mode: 'index',
-                    intersect: false
-                },
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                y: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
+    this.options = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+        plugins: {
+            legend: {
+                labels: {
+                    color: textColor
                 }
             }
-        };
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: textColorSecondary,
+                    font: {
+                        weight: 500
+                    }
+                },
+                grid: {
+                    color: surfaceBorder,
+                    drawBorder: true
+                }
+            },
+            y: {
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    color: surfaceBorder,
+                    drawBorder: false
+                }
+            }
+        }
+    };
+  }
+  async ascendente(){
+    if(!this.desc){
+        this.descendente()
+    }else{
+        this.desc = false;
+        await this.barrasHorizontales(0);
+        this.txtBtn = 'Descendente'
+        this.btnColor = 'p-button-rounded p-button-danger'
+    }
+  }
+
+  async descendente(){
+    if(this.desc){
+        this.ascendente()
+    }else{
+        this.desc = true;
+        await this.barrasHorizontales(0);
+        this.txtBtn = 'Ascendente'
+        this.btnColor = 'p-button-rounded p-button-primary'
+    }
   }
 }
