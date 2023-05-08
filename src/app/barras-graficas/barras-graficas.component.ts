@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GeneralServicesService } from 'src/services/general-services.service';
 
-@Component({
+  @Component({
   selector: 'app-barras-graficas',
   templateUrl: './barras-graficas.component.html',
   styleUrls: ['./barras-graficas.component.css']
@@ -19,6 +19,7 @@ export class BarrasGraficasComponent implements OnInit {
   desc:boolean=true;
   txtBtn:string='Ascendente'
   btnColor:string='p-button-rounded p-button-primary'
+  
   constructor(
     private generalService:GeneralServicesService,
   ) { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { EstadisticaDescriptiva } from 'src/models/estadistica-descriptiva';
 import { GeneralServicesService } from 'src/services/general-services.service';
 
 @Component({
@@ -14,6 +15,13 @@ export class FuncionGraficasComponent implements OnInit {
   basicData: any;
   basicOptions: any;
   mostrarFunciones = false;
+  promedios:number[]=[];
+  modas:number[]=[];
+  modaMeses:string[]=[];
+  medianas:number[]=[];
+  desviaciones:number[]=[];
+  estadistica:EstadisticaDescriptiva[]=[];
+
   constructor(
     private generalService:GeneralServicesService
   ) { }
@@ -48,19 +56,30 @@ export class FuncionGraficasComponent implements OnInit {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
     
     let keys = Object.keys(data[0]);
-    let values2012 = Object.values(data[0]);
-    let values2013 = Object.values(data[1]);
-    let values2014 = Object.values(data[2]);
-    let values2015 = Object.values(data[3]);
-    let values2016 = Object.values(data[4]);
-    let values2017 = Object.values(data[5]);
-    let values2018 = Object.values(data[6]);
-    let values2019 = Object.values(data[7]);
-    let values2020 = Object.values(data[8]);
-    let values2021 = Object.values(data[9]);
-    let values2022 = Object.values(data[10]);
+    let values2012 = Object.values(data[0]).slice(0, -5);
+    let values2013 = Object.values(data[1]).slice(0, -5);;
+    let values2014 = Object.values(data[2]).slice(0, -5);
+    let values2015 = Object.values(data[3]).slice(0, -5);
+    let values2016 = Object.values(data[4]).slice(0, -5);
+    let values2017 = Object.values(data[5]).slice(0, -5);
+    let values2018 = Object.values(data[6]).slice(0, -5);
+    let values2019 = Object.values(data[7]).slice(0, -5);
+    let values2020 = Object.values(data[8]).slice(0, -5);
+    let values2021 = Object.values(data[9]).slice(0, -5);
+    let values2022 = Object.values(data[10]).slice(0, -5);
 
-    let meses = keys.slice(0, -1)
+    for(let element of data){
+      let estadistica:EstadisticaDescriptiva = new EstadisticaDescriptiva
+      estadistica.anio = element['anio'];
+      estadistica.media = element['media'];
+      estadistica.desviacion = element['desviacion'];
+      estadistica.moda = element['moda'];
+      estadistica.modaMes = element['modaMes'];
+      estadistica.mediana = element['mediana'];
+      this.estadistica.push(estadistica);
+    }
+
+    let meses = keys.slice(0, -6)
     let anio2012 = values2012.slice(0, -1)
     let anio2013 = values2013.slice(0, -1)
     let anio2014 = values2014.slice(0, -1)
@@ -73,7 +92,7 @@ export class FuncionGraficasComponent implements OnInit {
     let anio2021 = values2021.slice(0, -1)
     let anio2022 = values2022.slice(0, -1)
     //console.log(data)
-    console.log(meses)
+    //console.log(meses)
     this.data = {
         labels: meses,
         datasets: [
@@ -188,5 +207,8 @@ export class FuncionGraficasComponent implements OnInit {
             }
         }
     };
+  }
+  handleDataSelect(event){
+    console.log(event)
   }
 }

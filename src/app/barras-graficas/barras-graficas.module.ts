@@ -4,6 +4,8 @@ import { BarrasGraficasRoutingModule } from './barras-graficas-routing.module';
 import { BarrasGraficasComponent } from './barras-graficas.component';
 import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 
 @NgModule({
@@ -13,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
     BarrasGraficasRoutingModule,
     ChartModule,
     ButtonModule,
+    NgApexchartsModule,
   ],
   exports:[BarrasGraficasComponent]
 })
