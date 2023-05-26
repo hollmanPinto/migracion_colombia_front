@@ -11,11 +11,12 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GeneralServicesService {
   urlCargarCsv='http://127.0.0.1:8000/api/v1/loadCsv';
   urlInfo='http://127.0.0.1:8000/api/v1/verData';
-  urlPersonasAnio='http://127.0.0.1:8000/api/v1/personasXanio';
+  urlPersonasAnio='http://127.0.0.1:8000/api/v1/crimenesXanio';
   urlPoporcionHm='http://127.0.0.1:8000/api/v1/proporcionHm';
-  urlMigrantesTrim='http://127.0.0.1:8000/api/v1/ingresosMigrantesTr';
+  urlMigrantesTrim='http://127.0.0.1:8000/api/v1/delitosXanio';
   urlTopPaises='http://127.0.0.1:8000/api/v1/topPaises';
   urlMesAnioCantidad='http://127.0.0.1:8000/api/v1/cantidadMesesAnios';
+  urlEstadistica='http://127.0.0.1:8000/api/v1/estadistica';
 
   activarGraphTorta:boolean=false
   activarPie:boolean=false;
@@ -64,11 +65,17 @@ export class GeneralServicesService {
       }
       return this.http.post<any>(this.urlMigrantesTrim,body).toPromise();
   }
-  topPaises(): Promise<any>{
-    return this.http.get<any>(this.urlTopPaises).toPromise();
+  topPaises(top:number): Promise<any>{
+    let body = {
+      top:top
+    }
+    return this.http.post<any>(this.urlTopPaises,body).toPromise();
   }
   cantidadMesesAnios(): Promise<any>{
     return this.http.get<any>(this.urlMesAnioCantidad).toPromise();
+  }
+  estadistica():Promise<any>{
+    return this.http.get<any>(this.urlEstadistica).toPromise();
   }
 
   mostrarPie(data:boolean){//aqui emito el valor

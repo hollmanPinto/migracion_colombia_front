@@ -42,45 +42,15 @@ export class BarrasGraficasComponent implements OnInit {
   }
   async iniciar(){
     this.mostrarBarras = true;
-    this.barrasHorizontales(0)
+    this.barrasHorizontales(32)
   }
 
   async barrasHorizontales(top:number){
     this.paises = []
     this.topPaises = []
-    let topPaises:any[] = await this.generalService.topPaises();
-    if(this.desc){
-        for(let i=0; i<topPaises.length-top;i++){
-            if(topPaises[i]['NACIONALIDAD'] === 'REINO UNIDO DE GRAN BRETANA E IRLANDA DEL NORTE'){
-                this.paises.push('REINO UNIDO')
-                this.topPaises.push(topPaises[i]['TOTAL'])
-            }else{
-                if(topPaises[i]['NACIONALIDAD'] === 'ESTADOS UNIDOS DE AMERICA'){
-                    this.paises.push('ESTADOS UNIDOS')
-                    this.topPaises.push(topPaises[i]['TOTAL'])
-                }else{
-                    this.paises.push(topPaises[i]['NACIONALIDAD'])
-                    this.topPaises.push(topPaises[i]['TOTAL'])
-                }  
-            }
-        }
-    }else{
-        for(let i=topPaises.length-1;i>-1+top;i--){
-            console.log(this.topPaises[i])
-            if(topPaises[i]['NACIONALIDAD'] === 'REINO UNIDO DE GRAN BRETANA E IRLANDA DEL NORTE'){
-                this.paises.push('REINO UNIDO')
-                this.topPaises.push(topPaises[i]['TOTAL'])
-            }else{
-                if(topPaises[i]['NACIONALIDAD'] === 'ESTADOS UNIDOS DE AMERICA'){
-                    this.paises.push('ESTADOS UNIDOS')
-                    this.topPaises.push(topPaises[i]['TOTAL'])
-                }else{
-                    this.paises.push(topPaises[i]['NACIONALIDAD'])
-                    this.topPaises.push(topPaises[i]['TOTAL'])
-                }  
-            }
-        }
-    }
+    let topPaises = await this.generalService.topPaises(top);
+    this.paises = Object.keys(topPaises)
+    this.topPaises = Object.values(topPaises)
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -90,7 +60,7 @@ export class BarrasGraficasComponent implements OnInit {
         labels: this.paises,
         datasets: [
             {
-                label: 'Top de Paises con mayor migración desde hacia Colombia',
+                label: 'Departamentos con mayores denuncias',
                 backgroundColor: documentStyle.getPropertyValue('--green-500'),
                 borderColor: documentStyle.getPropertyValue('--blue-500'),
                 data: this.topPaises
@@ -101,7 +71,7 @@ export class BarrasGraficasComponent implements OnInit {
     this.options = {
         indexAxis: 'y',
         maintainAspectRatio: false,
-        aspectRatio: 0.6,
+        aspectRatio: 0.4,
         plugins: {
             legend: {
                 labels: {
@@ -139,7 +109,7 @@ export class BarrasGraficasComponent implements OnInit {
         this.descendente()
     }else{
         this.desc = false;
-        await this.barrasHorizontales(0);
+        await this.barrasHorizontales(20);
         this.txtBtn = 'Descendente'
         this.btnColor = 'p-button-rounded p-button-danger'
     }
@@ -150,7 +120,7 @@ export class BarrasGraficasComponent implements OnInit {
         this.ascendente()
     }else{
         this.desc = true;
-        await this.barrasHorizontales(0);
+        await this.barrasHorizontales(20);
         this.txtBtn = 'Ascendente'
         this.btnColor = 'p-button-rounded p-button-primary'
     }

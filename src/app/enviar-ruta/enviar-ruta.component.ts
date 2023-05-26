@@ -53,7 +53,7 @@ export class EnviarRutaComponent implements OnInit {
     let enviarCsv = await this.generalService.enviarUrlCsv(this.ruta);
     this.mostrarTabla = enviarCsv?enviarCsv.valor:false;
     if(this.mostrarTabla){
-      let tablaInfo:MigracionColombia[] = await this.generalService.tablaInfo('2012','','5','alemania');
+      let tablaInfo:MigracionColombia[] = await this.generalService.tablaInfo('2012','','5','');
       this.migraciones = tablaInfo;
       console.log(this.migraciones)
       this.mostrarForm = true;

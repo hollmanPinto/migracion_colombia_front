@@ -1,12 +1,11 @@
 export class MigracionColombia{
-  index:number;
-  ANIO:number;
-  MES:string;
-  NACIONALIDAD:string;
-  ISO_3166:string;
-  FEMENINO:number;
-  MASCULINO:number;
-  INDEFINIDO:string;
-  TOTAL:number;
-  LATITUD_LONGITUD:string;
+  DEPARTAMENTO:number;
+  MUNICIPIO:string;
+  ARMAS_MEDIOS:string;
+  GENERO:string;
+  GRUPO_ETARIO:number;
+  DELITO:number;
+  DIA:string;
+  MES:number;
+  ANIO:string;
 }

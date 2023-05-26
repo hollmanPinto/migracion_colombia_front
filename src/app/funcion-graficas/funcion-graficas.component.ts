@@ -47,6 +47,7 @@ export class FuncionGraficasComponent implements OnInit {
     this.mostrarFunciones=true;
     let data:[] = await this.generalService.cantidadMesesAnios()
     this.graficaFuncion(data)
+    this.datosEstadisticos();
   }
 
   graficaFuncion(data){
@@ -68,18 +69,21 @@ export class FuncionGraficasComponent implements OnInit {
     let values2021 = Object.values(data[9]).slice(0, -5);
     let values2022 = Object.values(data[10]).slice(0, -5);
 
-    for(let element of data){
-      let estadistica:EstadisticaDescriptiva = new EstadisticaDescriptiva
-      estadistica.anio = element['anio'];
-      estadistica.media = element['media'];
-      estadistica.desviacion = element['desviacion'];
-      estadistica.moda = element['moda'];
-      estadistica.modaMes = element['modaMes'];
-      estadistica.mediana = element['mediana'];
-      this.estadistica.push(estadistica);
-    }
 
-    let meses = keys.slice(0, -6)
+    let meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
+    ]
     let anio2012 = values2012.slice(0, -1)
     let anio2013 = values2013.slice(0, -1)
     let anio2014 = values2014.slice(0, -1)
@@ -91,8 +95,69 @@ export class FuncionGraficasComponent implements OnInit {
     let anio2020 = values2020.slice(0, -1)
     let anio2021 = values2021.slice(0, -1)
     let anio2022 = values2022.slice(0, -1)
-    //console.log(data)
-    //console.log(meses)
+    let anio2010 = values2022.slice(0, -1)
+    let anio2011 = values2022.slice(0, -1)
+
+
+    for(let element of data){
+      let agno:number = element['ANIO'];
+      switch(agno){
+        case 2012:{
+          anio2012.push(element['total_delitos'])
+          break;
+        }
+        case 2013:{
+          anio2013.push(element['total_delitos'])
+          break;
+        }
+        case 2014:{
+          anio2014.push(element['total_delitos'])
+          break;
+        }
+        case 2015:{
+          anio2015.push(element['total_delitos'])
+          break;
+        }
+        case 2016:{
+          anio2016.push(element['total_delitos'])
+          break;
+        }
+        case 2017:{
+          anio2017.push(element['total_delitos'])
+          break;
+        }
+        case 2018:{
+          anio2018.push(element['total_delitos'])
+          break;
+        }
+        case 2019:{
+          anio2019.push(element['total_delitos'])
+          break;
+        }
+        case 2020:{
+          anio2020.push(element['total_delitos'])
+          break;
+        }
+        case 2021:{
+          anio2021.push(element['total_delitos'])
+          break;
+        }
+        case 2022:{
+          anio2022.push(element['total_delitos'])
+          break;
+        }
+        case 2010:{
+          anio2010.push(element['total_delitos'])
+          break;
+        }
+        case 2011:{
+          anio2011.push(element['total_delitos'])
+          break;
+        }
+      }
+    }
+
+    console.log(anio2012)
     this.data = {
         labels: meses,
         datasets: [
@@ -173,6 +238,20 @@ export class FuncionGraficasComponent implements OnInit {
   borderColor: documentStyle.getPropertyValue('--yellow-500'),
   tension: 0.4
 },
+{
+  label: 'Año 2010',
+  data: anio2010,
+  fill: false,
+  borderColor: documentStyle.getPropertyValue('--orange-500'),
+  tension: 0.4
+},
+{
+  label: 'Año 2011',
+  data: anio2011,
+  fill: false,
+  borderColor: documentStyle.getPropertyValue('--pink-500'),
+  tension: 0.4
+},
         ]
     };
 
@@ -210,5 +289,9 @@ export class FuncionGraficasComponent implements OnInit {
   }
   handleDataSelect(event){
     console.log(event)
+  }
+
+  async datosEstadisticos(){
+    this.estadistica = await this.generalService.estadistica()
   }
 }

@@ -19,7 +19,7 @@
         <div style="flex:1">
             <span class="p-float-label">
                 <input pInputText id="username" [(ngModel)]="nacionalidad" />
-                <label htmlFor="username">Nacionalidad</label>
+                <label htmlFor="username">Departamento</label>
             </span>
         </div>
         <div style="flex:1">
@@ -37,30 +37,28 @@
         <p-table [value]="migraciones" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>INDEX</th>
-                    <th>AÑO</th>
+                    <th>DEPARTAMENTO</th>
+                    <th>MUNICIPIO</th>
+                    <th>ARMAS MEDIOS</th>
+                    <th>GENERO</th>
+                    <th>GRUPO ETARIO</th>
+                    <th>DELITO</th>
+                    <th>DIA</th>
                     <th>MES</th>
-                    <th>NACIONALIDAD</th>
-                    <th>ISO_3166</th>
-                    <th>FEMENINO</th>
-                    <th>MASCULINO</th>
-                    <th>INDEFINIDO</th>
-                    <th>TOTAL</th>
-                    <th>LATITUD_LONGITUD</th>
+                    <th>AÑO</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-migracion>
                 <tr>
-                    <td>{{ migracion.index }}</td>
-                    <td>{{ migracion.ANIO }}</td>
+                    <td>{{ migracion.DEPARTAMENTO }}</td>
+                    <td>{{ migracion.MUNICIPIO }}</td>
+                    <td>{{ migracion.ARMAS_MEDIOS }}</td>
+                    <td>{{ migracion.GENERO }}</td>
+                    <td>{{ migracion.GRUPO_ETARIO }}</td>
+                    <td>{{ migracion.DELITO }}</td>
+                    <td>{{ migracion.DIA }}</td>
                     <td>{{ migracion.MES }}</td>
-                    <td>{{ migracion.NACIONALIDAD }}</td>
-                    <td>{{ migracion.ISO_3166 }}</td>
-                    <td>{{ migracion.FEMENINO }}</td>
-                    <td>{{ migracion.MASCULINO }}</td>
-                    <td>{{ migracion.INDEFINIDO }}</td>
-                    <td>{{ migracion.TOTAL }}</td>
-                    <td>{{ migracion.LATITUD_LONGITUD }}</td>
+                    <td>{{ migracion.ANIO }}</td>
                 </tr>
             </ng-template>
         </p-table>

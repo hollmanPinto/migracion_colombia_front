@@ -23,6 +23,8 @@ export class PieGraficasComponent implements OnInit {
   anioFinalPolar:string='';
   listaAnios:string[]=['2012'];
   opciones = [
+    { label: '2010', value: "2010" },
+    { label: '2011', value: "2011" },
     { label: '2012', value: "2012" },
     { label: '2013', value: "2013" },
     { label: '2014', value: "2014" },
@@ -34,6 +36,7 @@ export class PieGraficasComponent implements OnInit {
     { label: '2020', value: "2020" },
     { label: '2021', value: "2021" },
     { label: '2022', value: "2022" },
+    { label: '2023', value: "2023" },
   ];
   private subscription:Subscription
   constructor(
@@ -114,7 +117,7 @@ export class PieGraficasComponent implements OnInit {
   }
 //PARA GENERAR DONOUT**************************************************
   async graficoDon(){
-    let data = await this.generalService.proporcionHm('2012-2013');
+    let data = await this.generalService.migrantesTrimestre('2012-2013');
     let listaAnios:string[]=[];
     let listaValores:number[]=[];
     for (let key in data) {
@@ -133,7 +136,7 @@ export class PieGraficasComponent implements OnInit {
       listaAnios.push(key)
       listaValores.push(Number(data[key]))
     }
-    this.generarDon(listaAnios,listaValores)
+    this.generarPolar(listaAnios,listaValores)
   }
 
   generarDon(listaAnios:string[],listaValores:number[]){
@@ -153,31 +156,24 @@ export class PieGraficasComponent implements OnInit {
         this.optDon = {
           plugins: {
             legend: {
-              labels: {
-                usePointStyle: true,
-                color: textColor
-                  }
-              }
+              display: false // Oculta la leyenda
+            },
+            tooltip: {
+              enabled: true // Deshabilita los tooltips
+            },
+            datalabels: {
+              display: true // Oculta las etiquetas de datos
             }
+          }
         };
   }
   //para generar polar **************************************************************
   async graficoPolar(){
-    let data = await this.generalService.migrantesTrimestre('2012-2013');
+    let data = await this.generalService.proporcionHm('2012-2013');
     let listaAnios:string[]=[];
     let listaValores:number[]=[];
-    let trimestre:string="";
     for (let key in data) {
-      if(key==='trim1'){
-        trimestre="1 Trimestre"
-      }else if(key==='trim2'){
-        trimestre="2 Trimestre"
-      }else if(key==='trim3'){
-        trimestre="3 Trimestre"
-      }else if(key==='trim4'){
-        trimestre="4 Trimestre"
-      }
-      listaAnios.push(trimestre)
+      listaAnios.push(key)
       listaValores.push(Number(data[key]))
     }
     this.generarPolar(listaAnios,listaValores)
@@ -188,21 +184,11 @@ export class PieGraficasComponent implements OnInit {
     let data = await this.generalService.migrantesTrimestre(anios);
     let listaAnios:string[]=[];
     let listaValores:number[]=[];
-    let trimestre:string="";
     for (let key in data) {
-      if(key==='trim1'){
-        trimestre="1 Trimestre"
-      }else if(key==='trim2'){
-        trimestre="2 Trimestre"
-      }else if(key==='trim3'){
-        trimestre="3 Trimestre"
-      }else if(key==='trim4'){
-        trimestre="4 Trimestre"
-      }
-      listaAnios.push(trimestre)
+      listaAnios.push(key)
       listaValores.push(Number(data[key]))
     }
-    this.generarPolar(listaAnios,listaValores)
+    this.generarDon(listaAnios,listaValores)
   }
 
   generarPolar(listaAnios:string[],listaValores:number[]){
@@ -229,5 +215,21 @@ export class PieGraficasComponent implements OnInit {
               }
             }
         };
+  }
+
+  getChartOptions(): any {
+    return {
+      plugins: {
+        legend: {
+          display: false // Oculta la leyenda
+        },
+        tooltip: {
+          enabled: false // Deshabilita los tooltips
+        },
+        datalabels: {
+          display: false // Oculta las etiquetas de datos
+        }
+      }
+    };
   }
 }

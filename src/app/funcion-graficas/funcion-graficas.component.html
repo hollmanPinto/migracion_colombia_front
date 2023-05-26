@@ -12,20 +12,20 @@
             <tr>
                 <th>Año</th>
                 <th>Promedio</th>
-                <th>Cantidad Mayor Migración</th>
-                <th>Mes Mayor Migración</th>
+                <th>Denuncias Mes Mayor</th>
+                <th>Mes Mayor Denuncias</th>
                 <th>Mediana</th>
                 <th>Desviación Estándar</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-estadistica>
             <tr>
-                <td>{{ estadistica.anio }}</td>
-                <td>{{ estadistica.media }}</td>
-                <td>{{ estadistica.moda }}</td>
-                <td>{{ estadistica.modaMes }}</td>
-                <td>{{ estadistica.mediana }}</td>
-                <td>{{ estadistica.desviacion }}</td>
+                <td>{{ estadistica.agno }}</td>
+                <td>{{ estadistica.promedio_denuncias_mes }}</td>
+                <td>{{ estadistica.cantidad_denuncias_mes_mayor }}</td>
+                <td>{{ estadistica.mes_mas_denuncias }}</td>
+                <td>{{ estadistica.mediana_denuncias }}</td>
+                <td>{{ estadistica.desviacion_estandar }}</td>
             </tr>
         </ng-template>
     </p-table>

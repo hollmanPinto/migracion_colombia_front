@@ -1,8 +1,8 @@
 export class EstadisticaDescriptiva{
-  anio:number;
-  media:number;
-  moda:number;
-  modaMes:string;
-  mediana:number;
-  desviacion:number;
+  agno:number;
+  promedio_denuncias_mes:number;
+  cantidad_denuncias_mes_mayor:number;
+  mes_mas_denuncias:string;
+  mediana_denuncias:number;
+  desviacion_estandas:number;
 }

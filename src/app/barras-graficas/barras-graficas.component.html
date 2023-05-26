@@ -6,22 +6,20 @@
       </div>
       <div style="width: 10%; margin-top: 30px;">
         <p-button label="Top 20" styleClass="p-button-rounded p-button-help"
-        (onClick)="barrasHorizontales(0)"></p-button>
+        (onClick)="barrasHorizontales(20)"></p-button>
         <br><br>
         <p-button label="Top 15" styleClass="p-button-rounded p-button-help"
-        (onClick)="barrasHorizontales(5)"></p-button>
+        (onClick)="barrasHorizontales(15)"></p-button>
         <br><br>
         <p-button label="Top 10" styleClass="p-button-rounded p-button-help"
         (onClick)="barrasHorizontales(10)"></p-button>
         <br><br>
         <p-button label="Top 5" styleClass="p-button-rounded p-button-help"
-        (onClick)="barrasHorizontales(15)"></p-button>
+        (onClick)="barrasHorizontales(5)"></p-button>
         <br><br>
         <p-button label="Top 1" styleClass="p-button-rounded p-button-help"
-        (onClick)="barrasHorizontales(19)"></p-button>
+        (onClick)="barrasHorizontales(1)"></p-button>
         <br><br>
-        <p-button [label]="txtBtn" [styleClass]="btnColor"
-        (onClick)="ascendente()"></p-button>
       </div>
     </div>
     <p-chart type="bar" [data]="data1" [options]="options1"></p-chart>
